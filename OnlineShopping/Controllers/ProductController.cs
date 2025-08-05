@@ -27,6 +27,7 @@ namespace OnlineShopping.Controllers
         }
         public async Task<IActionResult> ProductDashboard(string? title)
         {
+            var searchProducts = _context.Product.Include(p => p.Category).Where(p => p.Title.Contains(title));
             var onlineShoppingContext = _context.Product.Include(p => p.Category);
             return View(await onlineShoppingContext.ToListAsync());
         }
