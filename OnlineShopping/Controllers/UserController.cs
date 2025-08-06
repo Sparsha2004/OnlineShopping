@@ -75,7 +75,7 @@ namespace OnlineShopping.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([Bind("Username,Password")] RegisterViewModel registerViewModel)
+        public async Task<IActionResult> Register([Bind("Username,Password,ConfirmPassword")] RegisterViewModel registerViewModel)
         {
             if (ModelState.IsValid)
             {
