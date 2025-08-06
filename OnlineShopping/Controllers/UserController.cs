@@ -79,13 +79,25 @@ namespace OnlineShopping.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userExist = (from u in _context.User where u.Username == registerViewModel.Username
-                                select u).ToList();
-                _context.Add(user);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var userExist = (from u in _context.User
+                                 where u.Username == registerViewModel.Username
+                                 select u).ToList();
+                if (userExist.Count > 0)
+                {
+                    ViewData["ErrorMessage"] = "Username already taken.";
+                }
+                else
+                {
+                    User user = new User();
+                    user.Username = registerViewModel.Username;
+                    user.Password = registerViewModel.Password;
+                    user.UserType = "normal";
+                    _context.Add(user);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index)); //needs to redirect login
+                }
             }
-            return View(registerViewModel);
+                return View(registerViewModel);
         }
 
         // GET: User/Edit/5
