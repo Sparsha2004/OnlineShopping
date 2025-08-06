@@ -64,6 +64,27 @@ namespace OnlineShopping.Controllers
             }
             return View(user);
         }
+        // GET: User/Register
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        // POST: User/Register
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register([Bind("Username,Password")] User user)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(user);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(user);
+        }
 
         // GET: User/Edit/5
         public async Task<IActionResult> Edit(int? id)
