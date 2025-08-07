@@ -120,7 +120,7 @@ namespace OnlineShopping.Controllers
                                  select u).ToList();
                 if (userExist.Count > 0)
                 {
-                    return RedirectToAction("ProductDashboard", "Product")); //needs to redirect to ProductDashboard
+                    return RedirectToAction("ProductDashboard", "Product"); //needs to redirect to ProductDashboard
                 }
                 else
                 {
