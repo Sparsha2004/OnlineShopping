@@ -125,7 +125,6 @@ namespace OnlineShopping.Controllers
                 else
                 {
                     ViewData["ErrorMessage"] = "Username or password is invalid.";
-                    return RedirectToAction(nameof(Index)); //needs to redirect login
                 }
             }
             return View(loginViewModel);
