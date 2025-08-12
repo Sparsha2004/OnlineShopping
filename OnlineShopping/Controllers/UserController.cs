@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -120,6 +121,12 @@ namespace OnlineShopping.Controllers
                                  select u).ToList();
                 if (userExist.Count > 0)
                 {
+                    List<Claim> claims = new List<Claim>();
+                    Claim claim = new Claim(ClaimTypes.Email, loginViewModel.Username);
+                    claims.Add(claim);
+                    Claim claim1 = new Claim(ClaimTypes.Role, userExist[0].UserType);
+                    Claim.Add(claim1);
+                    ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "UserLogin");
                     return RedirectToAction("ProductDashboard", "Product"); //needs to redirect to ProductDashboard
                 }
                 else
