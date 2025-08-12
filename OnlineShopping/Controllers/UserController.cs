@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OnlineShopping.Data;
 using OnlineShopping.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 
 namespace OnlineShopping.Controllers
 {
@@ -125,8 +128,10 @@ namespace OnlineShopping.Controllers
                     Claim claim = new Claim(ClaimTypes.Email, loginViewModel.Username);
                     claims.Add(claim);
                     Claim claim1 = new Claim(ClaimTypes.Role, userExist[0].UserType);
-                    Claim.Add(claim1);
-                    ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "UserLogin");
+                    claims.Add(claim1);
+                    ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);  
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
                     return RedirectToAction("ProductDashboard", "Product"); //needs to redirect to ProductDashboard
                 }
                 else
