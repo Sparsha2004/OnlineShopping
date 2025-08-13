@@ -11,7 +11,7 @@ using OnlineShopping.Models;
 
 namespace OnlineShopping.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class CategoryController : Controller
     {
         private readonly OnlineShoppingContext _context;
