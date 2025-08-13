@@ -27,6 +27,7 @@ namespace OnlineShopping.Controllers
             var onlineShoppingContext = _context.Product.Include(p => p.Category);
             return View(await onlineShoppingContext.ToListAsync());
         }
+        [AllowAnonymous]
         public async Task<IActionResult> ProductDashboard(string? title)
         {
             if (string.IsNullOrEmpty(title))
@@ -40,7 +41,7 @@ namespace OnlineShopping.Controllers
                 return View(await searchProducts.ToListAsync());
             }
         }
-
+        [AllowAnonymous]
         // GET: Product/Details/5
         public async Task<IActionResult> Details(int? id)
         {

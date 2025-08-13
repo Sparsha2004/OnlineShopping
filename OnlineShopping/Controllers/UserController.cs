@@ -10,10 +10,12 @@ using OnlineShopping.Data;
 using OnlineShopping.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace OnlineShopping.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly OnlineShoppingContext _context;
@@ -69,6 +71,7 @@ namespace OnlineShopping.Controllers
             return View(user);
         }
         // GET: User/Register
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
@@ -79,6 +82,7 @@ namespace OnlineShopping.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Register([Bind("Username,Password,ConfirmPassword")] RegisterViewModel registerViewModel)
         {
             if (ModelState.IsValid)
@@ -104,6 +108,7 @@ namespace OnlineShopping.Controllers
                 return View(registerViewModel);
         }
         // GET: User/Login
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
@@ -114,6 +119,7 @@ namespace OnlineShopping.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([Bind("Username,Password")] LoginViewModel loginViewModel)
         {
             if (ModelState.IsValid)
