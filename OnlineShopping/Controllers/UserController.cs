@@ -142,6 +142,12 @@ namespace OnlineShopping.Controllers
             }
             return View(loginViewModel);
         }
+        // GET: User/Logout
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("ProductDashboard", "Product"); 
+        }
 
         // GET: User/Edit/5
         public async Task<IActionResult> Edit(int? id)
